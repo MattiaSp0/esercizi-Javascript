@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esericizo 15 Compito</title>
+</head>
+<body>
+    
+
+</body>
+
+<script type="text/javascript">
+    var num_min = +prompt("Scegli un numero di partenza")
+    var num_max = +prompt("Scegli un numero di fine")
+
+    var somma = 0
+    while(num_min < num_max) {
+        if (num_min % 2 == 1) {
+            somma+=num_min
+        }
+        num_min++
+    }
+    console.log("Totale Somma numeri dispari: "+somma)
+</script>
+
+</html>
