@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: rgb(40, 40, 40);
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .puzzle {
+            display: flex;
+            width: 700px;
+            height: 700px;
+            border: 2px solid #fff;
+            background-color: #8f8f8f;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .block {
+            width: calc(700px/10);
+            height: calc(700px/10);
+            border: 1px solid rgb(40, 40, 40);
+            background-color: #d8d8d8;
+            text-align: center;
+            font-size: 1vw;
+        } 
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="puzzle">
+
+        </div>
+    </div>
+</body>
+<script>
+    var num_casuali = 15
+    var col = 9
+    var rows = 9
+    var all_num = ["salta lo 0"]
+
+    var array_num = []
+    for (let i = 0; i < num_casuali; i++) {
+        array_num.push(Math.round(Math.random() * 8 + 1))
+    }
+
+    var array = []
+    for (let i = 0; i < num_casuali; i++) {
+        let gen_num_cell = Math.round(Math.random() * 80 + 1)
+        if (array.includes(gen_num_cell)) {
+            gen_num_cell = Math.round(Math.random() * 80 + 1)
+            array.push(gen_num_cell)
+        } else {
+            array.push(gen_num_cell)
+        }
+    }
+
+    for (let i=1; i <= col*rows; i++) {
+        let celle = document.createElement("input")
+        celle.className = "block"
+        celle.type = "number"
+        celle.max = 9
+        celle.min = 0
+        if (array.find(element => element == i)) {
+            celle.value = array_num[0]
+
+            all_num.push(array_num[0])
+            array_num.shift()
+            array.splice(array.indexOf(array.find(element => element == i)), 1)
+
+            celle.style.border = "5px solid red"
+        } else {
+            celle.value = 0
+            all_num.push(0)
+        }
+        document.querySelector(".puzzle").append(celle)
+    }
+    console.log(all_num)
+
+    var numeratore = 0
+    for (let i=1; i <= rows; i++) {
+        numeratore+=rows
+        for (let j=numeratore; j < numeratore+9; j++) {
+            console.log(all_num[j-1])
+        }
+    }
+
+    var input = document.querySelectorAll("input")
+    input.forEach(element => {
+        element.addEventListener("change", function() {
+            if(element.value < 0) {
+                element.value = 0
+            } else if (element.value > 9) {
+                element.value = 9
+            }
+        })
+    });
+</script>
+
+</html>
